@@ -1,65 +1,61 @@
-# my-gift-contract
+# My Gift Contract
 
-Write validators in the `validators` folder, and supporting functions in the `lib` folder using `.ak` as a file extension.
+A comprehensive Cardano smart contract project for gifting ADA, built with [Aiken](https://aiken-lang.org/) and [MeshSDK](https://meshjs.dev/).
 
-```aiken
-validator my_first_validator {
-  spend(_datum: Option<Data>, _redeemer: Data, _output_reference: Data, _context: Data) {
-    True
-  }
-}
-```
+## Project Structure
 
-## Building
+- `validators/`: Contains the Aiken smart contract code (`gift.ak`).
+- `lib/`: Supporting Aiken functions.
+- `scripts/`: Off-chain interaction scripts (Typescript/MeshSDK).
+- `plutus.json`: Compiled smart contract blueprint (generated).
 
-```sh
+## Prerequisites
+
+- [Aiken](https://github.com/aiken-lang/aiken) installed.
+- Javascript runtime (Node.js 18+).
+- `npm` installed.
+
+## Setup
+
+1.  **Install Dependencies**:
+
+    ```bash
+    npm install
+    ```
+
+2.  **Environment Variables**:
+    Create a `.env` file in the root directory (copied from `.env.example` if available) and add your mnemonic:
+    ```env
+    MNEMONIC="your 24 word mnemonic here ..."
+    ```
+
+## Development Workflow
+
+### 1. Compile Smart Contract
+
+Compile the Aiken code to generate the `plutus.json` blueprint.
+
+```bash
 aiken build
 ```
 
-## Configuring
+### 2. Run Tests
 
-**aiken.toml**
-```toml
-[config.default]
-network_id = 41
-```
+Execute unit tests defined in `validators/gift.ak`.
 
-Or, alternatively, write conditional environment modules under `env`.
-
-## Testing
-
-You can write tests in any module using the `test` keyword. For example:
-
-```aiken
-use config
-
-test foo() {
-  config.network_id + 1 == 42
-}
-```
-
-To run all tests, simply do:
-
-```sh
+```bash
 aiken check
 ```
 
-To run only tests matching the string `foo`, do:
+### 3. Off-chain Interaction
 
-```sh
-aiken check -m foo
+Run the off-chain script to interact with the contract (e.g., get contract address).
+
+```bash
+npm start
 ```
 
 ## Documentation
 
-If you're writing a library, you might want to generate an HTML documentation for it.
-
-Use:
-
-```sh
-aiken docs
-```
-
-## Resources
-
-Find more on the [Aiken's user manual](https://aiken-lang.org).
+- [Aiken Documentation](https://aiken-lang.org)
+- [MeshSDK Documentation](https://meshjs.dev)
